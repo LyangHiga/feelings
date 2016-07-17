@@ -1,0 +1,25 @@
+<h1>Titulo</h1> 
+
+
+<form action="{% url 'collectTweetsForm'  %}" method='post' class="form-horizontal">
+{% csrf_token %}
+	{%for field in form%}
+		<div>
+			<label>{{field.label}}</label>
+			{{field}}
+		</div>
+	{% endfor %}
+	<input type="submit" value="Coletar!"></input>
+</form>
+
+
+<form action="{% url 'analiseTweetsForm'  %}" >
+	{{form_analise}}
+	<input type="submit" value="Analisar!"></input>
+</form>
+
+
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
