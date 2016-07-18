@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.http import HttpResponse
 from forms import CollectForm, AnaliseForm
+from logger import *
 import pdb
 
 
@@ -12,10 +13,13 @@ def index(request):
 def collectTweetsForm(request):
 	form = CollectForm(request.POST)
 	if(form.is_valid()):
-		#PEGANDO inputs da tela aqui, fazer uma logica com eles...
 		hashtag_value = form.cleaned_data["hashtag"]
 		duration_value = form.cleaned_data["duration"]
 		max_tweets_value = form.cleaned_data["max_tweets"]
+			
+		twitter_stream = Stream(auth, MyListener(fname=hashtag_value+".txt", time_limit=duration_value, tweets_limit=max_tweets_value))
+		twitter_stream.filter(track=["#"+hashtag_value])
+		
 		return HttpResponse("PEGANDO OS TWEETS")
 	return index(request)
 
