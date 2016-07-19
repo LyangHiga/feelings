@@ -17,4 +17,4 @@ def classify(tweet):
 	return Classifier.classify(extract_features(tweet.split()))
 
 if __name__ == "__main__":
-	print(classify(sys.argv[1]))
+	print classify(sys.argv[1])
