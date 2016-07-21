@@ -55,7 +55,7 @@ ROOT_URLCONF = 'feelings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['interface\\templates'],
+        'DIRS': ['interface/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

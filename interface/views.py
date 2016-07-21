@@ -3,10 +3,13 @@ from django.template import loader
 from django.http import HttpResponse
 from forms import CollectForm, AnaliseForm
 from logger import *
+from subprocess import call
+import os
 import pdb
 
-
-FILES_DIRECTORY = "C:\\"
+settings_dir = os.path.dirname(__file__)
+PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
+FILES_DIRECTORY = os.path.join(PROJECT_ROOT, 'arquivos/')
 def index(request):
 	return render(request,'index.html', {'form':CollectForm(),"form_analise":AnaliseForm(directory=FILES_DIRECTORY) })
 
@@ -31,6 +34,7 @@ def analiseTweetsForm(request):
 	#gerar um json pra botar no grafico
 	graphic_json = "json : json"
 	request.session['graphic_json'] = graphic_json
+	call(["spark-submit", "%s" % os.path.join(FILES_DIRECTORY, 'analise.py')])
 	return redirect("graphicView")
 
 def graphic(request):
