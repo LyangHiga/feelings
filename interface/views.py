@@ -30,11 +30,10 @@ def analiseTweetsForm(request):
 	filename_value = request.GET["filename"]
 	filepath = FILES_DIRECTORY + filename_value
 	#ADICIONAR logica de leitura de arquivo e analise aqui
-	
+	call("spark-submit %s %s" % ( os.path.join(FILES_DIRECTORY, "analise.py") ,filename_value), shell=True)
 	#gerar um json pra botar no grafico
 	graphic_json = "json : json"
 	request.session['graphic_json'] = graphic_json
-	call(["spark-submit", "%s" % os.path.join(FILES_DIRECTORY, 'analise.py')])
 	return redirect("graphicView")
 
 def graphic(request):
