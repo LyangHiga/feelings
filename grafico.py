@@ -1,4 +1,15 @@
-<html>
+import os
+
+settings_dir = os.path.dirname(__file__)
+PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
+
+def geraGrafico(nome,valores):
+    nome = "#"+nome.split("/")[-1].rstrip(".txt")
+    for i in xrange(len(valores)):
+        valores[i]=list(valores[i])
+    valores = [['Valor','Tweets']]+valores
+    #for i in xrange(len(valores)): valores[i][1]=str(valores[i][1])
+    out = """<html>
   <head>
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -16,10 +27,10 @@
       function drawChart() {
 
         // Create the data table.
-        var data = new google.visualization.arrayToDataTable([['Valor', 'Tweets'], ['positivo', 131], ['negativo', 107]]);
+        var data = new google.visualization.arrayToDataTable("""+"{0});".format(str(valores)) + """
 
         // Set chart options
-        var options = {'title':'Analise de Sentimentos (#trump)',
+        var options = {'title':'Analise de Sentimentos ("""+nome+""")',
                        'width':700,
                        'height':400,
                        'hAxis': {title: 'Valor'},
@@ -38,4 +49,7 @@
     <div id="chart_div" style="width:700; height:500"></div>
   </body>
 </html>
-    
+    """
+    f = open("./interface/templates/graphic.html","w")
+    f.write(out)
+    f.close()

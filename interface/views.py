@@ -3,6 +3,7 @@ from django.template import loader
 from django.http import HttpResponse
 from forms import CollectForm, AnaliseForm
 from logger import *
+import subprocess
 from subprocess import call
 import os
 import pdb
@@ -10,6 +11,9 @@ import pdb
 settings_dir = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
 FILES_DIRECTORY = os.path.join(PROJECT_ROOT, 'arquivos/')
+SCRIPTS_DIRECTORY = PROJECT_ROOT#os.path.join(PROJECT_ROOT, 'scripts/')
+SPARK_DIRECTORY = "/home/hugo/Downloads/spark-1.6.1-bin-hadoop2.6/bin/"
+
 def index(request):
 	return render(request,'index.html', {'form':CollectForm(),"form_analise":AnaliseForm(directory=FILES_DIRECTORY) })
 
@@ -30,7 +34,7 @@ def analiseTweetsForm(request):
 	filename_value = request.GET["filename"]
 	filepath = FILES_DIRECTORY + filename_value
 	#ADICIONAR logica de leitura de arquivo e analise aqui
-	call("spark-submit %s %s" % ( os.path.join(FILES_DIRECTORY, "analise.py") ,filename_value), shell=True)
+	subprocess.Popen([SPARK_DIRECTORY + "spark-submit", os.path.join(SCRIPTS_DIRECTORY, "analise.py"),filepath])
 	#gerar um json pra botar no grafico
 	graphic_json = "json : json"
 	request.session['graphic_json'] = graphic_json
