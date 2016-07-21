@@ -16,8 +16,8 @@ sc = SparkContext(conf = conf)
 
 def analiseSentimentos(x):
     resultado = classify(x)
-    if resultado=='positive': return 1
-    return 0
+    if resultado=='positive': return 'positivo'
+    return 'negativo'
     
 
 def funcaoMain():
