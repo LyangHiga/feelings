@@ -3,7 +3,7 @@ from os import listdir
 import pdb
 
 
-css={'class': "input-lg"}
+css={'style': "width: 250;"}
 
 class CollectForm(forms.Form):
 	hashtag = forms.CharField(label="Hashtag", required=True, max_length=50,widget=forms.TextInput(attrs=css))
@@ -22,4 +22,4 @@ class AnaliseForm(forms.Form):
 			self.formated_choices.append((name,name))
 		super(AnaliseForm,self).__init__(*args,**kwargs)
 		
-		self.fields["filename"] = forms.ChoiceField(label="arquivo", choices=self.formated_choices)
+		self.fields["filename"] = forms.ChoiceField(label="arquivo", choices=self.formated_choices,widget=forms.Select(attrs=css))

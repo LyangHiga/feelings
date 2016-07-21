@@ -1,25 +1,43 @@
-<h1>Titulo</h1> 
+<html>
+<head>
+	<title>Feelings</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+</head>
 
+<body>
+<h1>Análise de Sentimentos</h1> 
 
-<form action="{% url 'collectTweetsForm'  %}" method='post' class="form-horizontal">
+<h4> Coletar Tweets</h4>
+<form action="{% url 'collectTweetsForm'  %}" method='post' class="pure-form pure-form-aligned">
 {% csrf_token %}
-	{%for field in form%}
-		<div>
-			<label>{{field.label}}</label>
-			{{field}}
+	<fieldset>
+		<div class="pure-control-group">
+			<label for="hashtag">{{form.hashtag.label}}</label>
+			{{form.hashtag}}
 		</div>
-	{% endfor %}
-	<input type="submit" value="Coletar!"></input>
+		<div class="pure-control-group">
+			<label >{{form.duration.label}}</label>
+			{{form.duration}}
+		</div>
+		<div class="pure-control-group">
+			<label>{{form.max_tweets.label}}</label>
+			{{form.max_tweets}}
+		</div>
+	<input type="submit" value="Coletar!" class="pure-button pure-button-primary" style="margin-left: 160px;"></input>
+	</fieldset>
 </form>
 
-
-<form action="{% url 'analiseTweetsForm'  %}" >
-	{{form_analise}}
-	<input type="submit" value="Analisar!"></input>
+<h4> Analisar arquivo de Tweets</h4>
+<form action="{% url 'analiseTweetsForm'  %}"  class="pure-form pure-form-aligned">
+		<div class="pure-control-group">
+			<label>{{form_analise.filename.label}}</label>
+			{{form_analise.filename}}
+		</div>
+	<input type="submit" value="Analisar!" class="pure-button pure-button-primary" style="margin-left: 160px;"></input>
 </form>
 
+</html>
+</body>
 
 
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
